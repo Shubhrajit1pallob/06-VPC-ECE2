@@ -7,3 +7,5 @@
 3. Setup a route table with a rote to a IGW.
 4. Create a EC2 instance inside of the created subnet.
 5. Associate a public IP and security group that allows public Ingress
+6. Change the EC2 instance to use a publicaly avilable NGINX AMI (Free to use).
+7. Destroy eveerything to now encounter any chaarges from AWS.
