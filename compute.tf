@@ -1,18 +1,25 @@
 resource "aws_instance" "web" {
-  ami                         = "ami-02183c955d69e6bb5"
+  # AMI ID UBUNTU - ami-02183c955d69e6bb5
+  # AMI ID NGINX - ami-010e099e651d8635e
+  ami                         = "ami-010e099e651d8635e"
   associate_public_ip_address = true
   instance_type               = "t2.micro"
   subnet_id                   = aws_subnet.public.id
   vpc_security_group_ids      = [aws_security_group.public_http_traffic.id]
   root_block_device {
     delete_on_termination = true
-    volume_size           = 8
+    volume_size           = 10
     volume_type           = "gp2"
   }
 
   tags = merge(local.common_tags, {
     Name = "06-resources-ec2"
   })
+
+  # The lifecycle block ensures that the instance is created before the previous one is destroyed.
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_security_group" "public_http_traffic" {
